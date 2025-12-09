@@ -1,0 +1,283 @@
+/*
+  Holiday Movie Browser
+  Denna stylesheet styr layout (wrap, grid, cards), typografi (rubriker och textstorlekar),
+  formulär (sökruta + knapp), “chips”/snabbval under sökrutan samt en julig bakgrund med
+  fallande snö-effekt. Fokus är responsiv design, tydlig UI och en konsekvent julkänsla.
+*/
+
+
+/* =========================
+   Base / Reset
+   ========================= */
+
+* { box-sizing: border-box; }
+
+html,
+body {
+  height: 100%;
+}
+
+/* =========================
+   Page / Background
+   ========================= */
+
+body {
+  margin: 0;
+  font-family: system-ui, Arial, sans-serif;
+  color: #fff3e8;
+
+  font-size: 1.5em;
+  line-height: 1.5;
+  text-align: left;
+
+  background: linear-gradient(#7a0000, #8b181d, #4a0000) no-repeat fixed;
+}
+
+/* =========================
+   Headings
+   ========================= */
+
+h1 {
+  text-align: center;
+  font-family: "Academy Engraved LET", "Times New Roman", serif;
+  color: #ffdf8c;
+  font-size: 3rem;
+  line-height: 1.5;
+
+  margin: 50px 0 14px;
+  text-shadow:
+    0 2px 6px rgba(0,0,0,0.45),
+    0 0 14px rgba(255,223,140,0.45),
+    0 0 32px rgba(255,223,140,0.25);
+}
+
+/* Rubrik ovanför filmkorten */
+.section-title--left {
+  text-align: left;
+  font-family: system-ui, Arial, sans-serif;
+  color: #eef2ff;
+
+  font-size: 1rem;
+  margin: 25px 0 5px;
+
+  letter-spacing: 0;
+  text-shadow: none;
+}
+
+/* Extra spacing för resultsTitle */
+#resultsTitle {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+/* =========================
+   Layout container
+   ========================= */
+
+:root { --search-width: 800px; }
+
+.wrap {
+  width: min(1000px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 18px 0 28px;
+
+  /* Ser till att innehållet ligger ovanpå snön */
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================
+   Sökruta
+   ========================= */
+.row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 10px auto;
+
+  max-width: var(--search-width);
+}
+
+input {
+  flex: 1;
+  min-width: 220px;
+  padding: 12px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.06);
+  color: #eef2ff;
+
+  outline: none;
+
+  max-width: var(--search-width);
+}
+
+input:focus,
+input:focus-visible {
+  border-color: rgba(255, 243, 232, 0.55);
+  box-shadow: 0 0 0 3px rgba(255, 243, 232, 0.18);
+}
+
+button {
+  padding: 12px 14px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+
+  background: rgba(255, 255, 255, 0.1);
+  color: #eef2ff;
+
+  cursor: pointer;
+}
+
+button:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* =========================
+   Chips (''populära sökningar'' Snabbval knappar)
+   ========================= */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+
+  max-width: var(--search-width);
+  margin-left: auto;
+  margin-right: auto;
+
+  /* Justera så "Populära sökningar" börjar i linje med sökrutan */
+  padding-left: 12px;
+}
+
+.chips-label {
+  align-self: center;
+  font-size: 0.90rem;
+  color: rgba(255, 243, 232, 0.85);
+  margin-right: 6px;
+}
+
+.chip {
+  padding: 7px 9px;
+  font-size: 0.8rem;
+  border-radius: 10px;
+  line-height: 1.1;
+}
+
+/* =========================
+   Status text
+   ========================= */
+
+/* Status ska inte skapa luft när den är tom */
+#status {
+  margin: 0;
+  padding: 0;
+  min-height: 0;
+}
+
+/* =========================
+   Results grid + cards
+   ========================= */
+
+.grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 0;
+
+  /* Responsivt: automatiskt antal kolumner */
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.card {
+  padding: 8px;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.05);
+
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+/* =========================
+   Poster image
+   ========================= */
+
+.poster {
+  width: 100%;
+
+  /* Gör att alla posters får samma proportion */
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* =========================
+   Text styles
+   ========================= */
+
+.movie-title {
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: rgba(238, 242, 255, 0.92);
+}
+
+.small {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  color: rgba(238, 242, 255, 0.75);
+}
+
+
+/* Fallande "snö" i bakgrunden */
+.snow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+
+  /* Små vita prickar som symboliserar snö */
+  background-image:
+    radial-gradient(circle, rgba(255,255,255,0.75) 1px, transparent 4px),
+    radial-gradient(circle, rgba(255,255,255,0.45) 1px, transparent 2px),
+    radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 2px);
+  background-size: 180px 180px, 240px 240px, 320px 320px;
+  background-position: 0 0, 60px 40px, 120px 80px;
+
+  opacity: 0.55;
+  animation: snowFall 18s linear infinite;
+}
+
+.snow--2 {
+  opacity: 0.35;
+  animation-duration: 28s;
+  background-size: 220px 220px, 300px 300px, 420px 420px;
+}
+
+.snow--3 {
+  opacity: 0.25;
+  animation-duration: 14s;
+  background-size: 140px 140px, 200px 200px, 260px 260px;
+
+}
+
+@keyframes snowFall {
+  from { transform: translateY(-120px); }
+  to   { transform: translateY(120px); }
+}
+

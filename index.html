@@ -1,0 +1,71 @@
+<!--
+- Denna HTML-fil bygger upp den semantiska strukturen för min webbsida “Holiday Movie Browser”, där allt huvudinnehåll ligger i <main>.
+- Användaren kan söka efter filmer via formuläret #form (interaktiv kontroll). JavaScript fångar submit-eventet så att sidan inte laddas om.
+- “Populära sökningar” är knappar med data-q som skickar förvalda sökningar och återanvänder samma sökfunktion i JavaScript.
+- Resultatområdet #grid är tomt i HTML och fylls dynamiskt med filmkort (titel/år/betyg/poster) när data hämtas från ett publikt API via fetch.
+- Elementet #status används för att visa användarfeedback som “laddar”, felmeddelanden eller att inga träffar hittades.
+-->
+
+<!doctype html>
+<html class="no-js" lang="sv">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Holiday Movie Browser</title>
+  <meta name="description" content="Sök och bläddra bland julfilmer via ett publikt API.">
+
+  <link rel="stylesheet" href="css/style.css">
+  <meta name="description" content="">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+  <meta property="og:image:alt" content="">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.png">
+
+  <link rel="manifest" href="site.webmanifest">
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+<main class="wrap">
+  <h1>🍿 Holiday Movie Browser</h1>
+
+  <form id="form" class="row">
+    <label for="query"></label>
+    <input id="query" type="search" placeholder="Sök film..." required />
+    <button type="submit">Sök</button>
+  </form>
+
+  <div class="chips">
+    <span class="chips-label">Populära sökningar:</span>
+    <button class="chip" type="button" data-q="Home Alone">Home Alone</button>
+    <button class="chip" type="button" data-q="The Holiday">The Holiday</button>
+    <button class="chip" type="button" data-q="Elf">Elf</button>
+    <button class="chip" type="button" data-q="The Polar Express">The Polar Express</button>
+  </div>
+
+
+  <h2 id="resultsTitle" class="section-title section-title--left">Utvalda julfilmer:</h2>
+
+  <p id="status"></p>
+
+  <section id="grid" class="grid"></section>
+
+</main>
+
+<div class="snow" aria-hidden="true"></div>
+<div class="snow snow--2" aria-hidden="true"></div>
+<div class="snow snow--3" aria-hidden="true"></div>
+
+<script type="module" src="js/app.js"></script>
+</body>
+
+</html>
