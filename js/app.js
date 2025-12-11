@@ -1,3 +1,8 @@
+/*
+   Holiday Movie Browser – JavaScript:
+   - Kopplar ihop sökfält och knappar med OMDb API
+   - Hämtar filmer, skapar filmkort i HTML och visar IMDb-betyg
+*/
 
 // API-nyckel till OMDb (krävs för att få hämta data)
 const OMDB_KEY = "be127e16";
@@ -32,7 +37,7 @@ function setResultsTitle(total) {
   resultsTitle.textContent = `Träffar: ${total}`;
 }
 
-/* Reservbild för poster: om API:et inte har någon poster-bild för filmen (Poster = "N/A") så visas en enkel fallback-bild som skapas direkt i koden. */
+/* Reservbild för poster: om API:et saknar poster (Poster = "N/A") visas en enkel reservbild som skapas direkt i koden. */
 function createPosterFallback() {
   return (
     "data:image/svg+xml;charset=utf-8," +
@@ -62,10 +67,10 @@ async function fetchRating(imdbID) {
 
 /* Renderar filmer på sidan: skapar filmkort i HTML med JavaScript (poster, titel, år och betyg) och lägger dem i resultat-gridden. */
 async function renderMovies(movies) {
-  // Rensar tidigare resultat innan vi visar nya
+  // Rensar tidigare resultat innan man visar nya
   grid.innerHTML = "";
 
-  // Om vi inte fått några filmer: visa meddelande i resultatytan
+  // Om man inte fått några filmer: visa meddelande i resultatytan
   if (!movies || movies.length === 0) {
     grid.innerHTML = "<p>Inga träffar.</p>";
     return;
@@ -107,8 +112,8 @@ async function renderMovies(movies) {
 
     /* ---------------------------------------------------------------
        HÄMTA BETYG EFTERÅT (Promise med then/catch)
-       - Vi hämtar betyg per film med fetchRating(imdbID)
-       - När betyget kommer uppdaterar vi samma <p> för rating
+       - Hämtar betyg per film med fetchRating(imdbID)
+       - När betyget kommer uppdateras samma <p> för rating
        - catch används för att hantera nätverksfel / API-fel
     ---------------------------------------------------------------- */
     fetchRating(m.imdbID)
@@ -126,14 +131,14 @@ async function renderMovies(movies) {
 /* ---------------------------------------------------------------------------
    SÖK FILMER (API-ANROP + FELHANTERING)
    - Hämtar en lista filmer via OMDb: s=<sökord>&type=movie
-   - Visar status "Hämtar..." medan vi väntar
+   - Visar status "Hämtar..." medan man väntar
    - try/catch hanterar nätverksfel
 --------------------------------------------------------------------------- */
 
-// isStart = true betyder: på startsidan ska vi inte skriva "Träffar: ..."
+// isStart = true betyder: på startsidan ska det inte skrivas "Träffar: ..."
 async function searchMovies(q, isStart = false) {
   setStatus("Hämtar...");
-  grid.innerHTML = ""; // rensa resultat direkt (känns snabbare för användaren)
+  grid.innerHTML = ""; // rensar resultat direkt (snabbare för användaren)
 
   // encodeURIComponent skyddar URL:en om q innehåller mellanslag/åäö
   const url = `https://www.omdbapi.com/?apikey=${OMDB_KEY}&s=${encodeURIComponent(
@@ -151,7 +156,7 @@ async function searchMovies(q, isStart = false) {
 
       setStatus(data.Error || "Inga träffar.");
       await renderMovies([]); // visa "Inga träffar."
-      return; // avsluta funktionen här
+      return; // avslutar funktionen här
     }
 
     // totalResults kan vara en sträng, men det funkar bra att visa som text
@@ -217,4 +222,3 @@ document.querySelectorAll(".chip").forEach((btn) => {
 --------------------------------------------------------------------------- */
 setStartTitle();
 searchMovies("christmas", true);
-
